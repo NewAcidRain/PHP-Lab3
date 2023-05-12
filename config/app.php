@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Ensi\LaravelServeSwagger\ServeSwaggerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -168,6 +169,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -180,6 +182,7 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
