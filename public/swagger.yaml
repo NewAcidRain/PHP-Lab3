@@ -1,0 +1,557 @@
+openapi: "3.0.0"
+info:
+  title: "WeatherAPI"
+  description: "WeatherAPI"
+  version: "1.0"
+servers:
+  - url: http://localhost:8000/api/v1
+paths:
+  /daily/{city_id}:
+    get:
+      summary: Get daily forecast by city_id
+      operationId: getForecast
+      tags:
+        - Daily
+      parameters:
+        - name: city_id
+          in: path
+          required: true
+          description: Id of city
+          schema:
+            type: string
+      responses:
+        200:
+          description: Valid response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Daily"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+  /daily/{id}:
+    put:
+      summary: Update daily forecast
+      operationId: updateForecast
+      tags:
+        - Daily
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of daily forecast
+          schema:
+            type: integer
+      requestBody:
+        description: Object to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Daily"
+
+      responses:
+        201:
+          description: Create Instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Daily"
+
+    delete:
+      summary: Delete daily forecast
+      operationId: deleteForecast
+      tags:
+        - Daily
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of daily forecast
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Deleted item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Weather"
+
+    patch:
+      summary: Partial update of daily forecast
+      operationId: patchDailyForecast
+      tags:
+        - Daily
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of daily forecast
+          schema:
+            type: integer
+      requestBody:
+        description: Partial update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Weather"
+      responses:
+        200:
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Weather"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /daily:
+    post:
+      summary: Create new daily forecast
+      operationId: createDailyForecast
+      tags:
+        - Daily
+      requestBody:
+        description: Create daily forecast
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Daily"
+      responses:
+        201:
+          description: Created instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Daily"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Daily"
+
+  /hourly/{city_id}:
+    get:
+      summary: Get hourly forecast by city_id
+      operationId: getHourly
+      tags:
+        - Hourly
+      parameters:
+        - name: city_id
+          in: path
+          required: true
+          description: Id of city
+          schema:
+            type: string
+            properties:
+              data:
+                $ref: "#/components/schemas/Hourly"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Hourly"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+  /hourly/{id}:
+    put:
+      summary: Update hourly forecast
+      operationId: updateHourlyForecast
+      tags:
+        - Hourly
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id hourly forecast
+          schema:
+            type: string
+            properties:
+              data:
+                $ref: "#/components/schemas/Hourly"
+
+      requestBody:
+        description: Object to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Hourly"
+
+      responses:
+        201:
+          description: Create Instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Hourly"
+        default:
+          description: Array of errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hourly"
+    delete:
+      summary: Delete hourly forecast
+      operationId: deleteHourlyForecast
+      tags:
+        - Hourly
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of hourly forecast
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Delete instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Hourly"
+
+    patch:
+      summary: Partial update of hourly forecast
+      operationId: patchHourlyForecast
+      tags:
+        - Hourly
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of hourly forecast
+          schema:
+            type: integer
+      requestBody:
+        description: Partial update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Hourly"
+      responses:
+        200:
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Hourly"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /hourly:
+    post:
+      summary: Create new hourly item
+      operationId: createHourlyForecast
+      tags:
+        - Hourly
+      requestBody:
+        description: Hourly create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Hourly"
+
+      responses:
+        201:
+          description: Created instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Hourly"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /city/{id}:
+    get:
+      summary: Get city by id
+      operationId: getCity
+      tags:
+        - City
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of city
+          schema:
+            type: string
+            properties:
+              data:
+                $ref: "#/components/schemas/City"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/City"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+    put:
+      summary: Update hourly forecast
+      operationId: updateHourlyForecast
+      tags:
+        - City
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id hourly forecast
+          schema:
+            type: string
+            properties:
+              data:
+                $ref: "#/components/schemas/City"
+
+      requestBody:
+        description: Object to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/City"
+      responses:
+        201:
+          description: Create Instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/City"
+    post:
+      summary:  Create new city
+      operationId: createCity
+      tags:
+        - City
+      requestBody:
+        description: Hourly create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/City"
+      responses:
+        201:
+          description: Created instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/City"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+    delete:
+      summary: Delete city
+      operationId: deleteCity
+      tags:
+        - City
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of hourly forecast
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Delete instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/City"
+
+
+
+
+components:
+  schemas:
+    Daily:
+      type: object
+      required:
+        - temperature
+        - humidity
+        - wind
+        - type
+        - date
+        - city_id
+      properties:
+        id:
+          type: integer
+          description: Id generated by ORM
+          example: 1
+        temperature:
+          type: integer
+          description: Temperature
+          example: 20
+        humidity:
+          type: integer
+          description: Humidity
+          example: 30
+        wind:
+          type: string
+          description: Wind
+          example: 20.5
+        precipitation:
+          type: integer
+          description: Precipitation
+          example: 20
+        type:
+          type: string
+          enum:
+            - sunny
+            - rainy
+            - cloudy
+            - storm
+            - snow
+          description: Type of forecast
+          example: sunny
+        date:
+          type: string
+          format: char(3)
+          description: Date
+          example: 2023-04-26T21:17:41+0000
+        city_id:
+          type: integer
+          description: Id of city
+          example: 1
+
+    Hourly:
+      required:
+        - temperature
+        - type
+        - city_id
+        - date
+      properties:
+        id:
+          type: integer
+          description: Id generated by ORM
+          example: 1
+        temperature:
+          type: integer
+          description: Temperature
+          example: 20
+        type:
+          type: string
+          enum:
+            - sunny
+            - rainy
+            - cloudy
+            - storm
+            - snow
+          description: Type of forecast
+          example: sunny
+        date:
+          type: string
+          format: char(3)
+          description: Date
+          example: 2023-04-26T21:17:41+0000
+        city_id:
+          type: integer
+          description: Id of city
+          example: 1
+
+    City:
+      required:
+        - name
+        - name
+      properties:
+        name:
+          type: string
+          description: Name of city
+          example: Zelenograd
+    Errors:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          enum:
+            - 400
+            - 422
+            - 404
+            - 500
+        message:
+          type: string
+
+
+
+
